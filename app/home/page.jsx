@@ -1,4 +1,6 @@
+"use client";
 import Link from "next/link";
+import { useState, useEffect } from "react";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
 
@@ -8,7 +10,7 @@ const teamMembers = [
     id: 1,
     name: "Rajesh Sharma",
     role: "Founder & CEO",
-    bio: "15+ years in Jaipur real estate. Expert in Smart City corridors and plot valuation.",
+    bio: "15+ years in Sikar and Jaipur real estate. Expert in Smart City corridors and plot valuation.",
     initials: "RS",
     color: "#16324F",
   },
@@ -36,7 +38,7 @@ const blogs = [
     tag: "Market Insights",
     title: "Why Jaipur's Smart City Corridor Is the Best Bet in 2026",
     excerpt:
-      "Infrastructure investment, metro expansion, and DMIC alignment are driving land appreciation across Jaipur's western sectors.",
+      "Infrastructure investment, metro expansion, and DMIC alignment are driving land appreciation across Sikar and Jaipur's western sectors.",
     date: "Aug 05, 2026",
     readTime: "4 min read",
   },
@@ -54,7 +56,7 @@ const blogs = [
     tag: "Investment",
     title: "Residential vs Commercial: Which Plot Type Gives Better Returns?",
     excerpt:
-      "A data-driven comparison of price appreciation, rental yield, and liquidity for both plot categories in Jaipur.",
+      "A data-driven comparison of price appreciation, rental yield, and liquidity for both plot categories in the region.",
     date: "Jul 10, 2026",
     readTime: "5 min read",
   },
@@ -62,12 +64,12 @@ const blogs = [
 
 const faqs = [
   {
-    q: "What documents should I check before buying a plot in Jaipur?",
-    a: "You should verify the Jamabandi (record of rights), Khasra/Khatoni numbers, Nagar Nigam or JDA approval layout, No Objection Certificate (NOC), and the seller's ownership chain. Our legal team reviews all of these before listing any property.",
+    q: "What documents should I check before buying a plot in Jaipur / Sikar?",
+    a: "You should verify the Jamabandi (record of rights), Khasra/Khatoni numbers, Nagar Nigam, JDA or local authority approved layout, No Objection Certificate (NOC), and the seller's ownership chain. Our legal team reviews all of these before listing any property.",
   },
   {
-    q: "What is the current registry rate in Jaipur?",
-    a: "The stamp duty and registration fee in Rajasthan is approximately 11% of the circle rate or agreement value (whichever is higher). This includes 6% stamp duty, 1% registration fee, and other surcharges. We provide transparent, upfront disclosure on all our listings.",
+    q: "What is the current registry rate in Rajasthan?",
+    a: "The stamp duty and registration fee in Rajasthan is approximately 11% of the circle rate or agreement value (whichever is higher). This includes 6% stamp duty, 1% registration fee, and other surcharges.",
   },
   {
     q: "Do you offer a no-interest payment plan?",
@@ -79,7 +81,7 @@ const faqs = [
   },
   {
     q: "What is the difference between a JDA-approved and RERA-registered plot?",
-    a: "JDA (Jaipur Development Authority) approval means the layout plan is sanctioned by the local body. RERA registration is mandatory for developers selling more than 8 plots or above 500 sq m. We clarify the exact regulatory status for each listing.",
+    a: "JDA (Jaipur Development Authority) or local body approval means the layout plan is sanctioned by the local body. RERA registration is mandatory for developers selling more than 8 plots or above 500 sq m.",
   },
   {
     q: "How long does the registry process take?",
@@ -88,6 +90,16 @@ const faqs = [
 ];
 
 export default function Home() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const slides = ["/image/4.jpg", "/image/5.jpg", "/image/8.jpg"];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, [slides.length]);
+
   return (
     <>
       <Header />
@@ -96,28 +108,48 @@ export default function Home() {
       <header className="hero">
         <span className="corner-pin cp-tl"></span>
         <span className="corner-pin cp-tr"></span>
+
         <div className="hero-inner">
-          <div className="eyebrow">Jaipur · Plots &amp; Commercial Property</div>
-          <h1>
-            Land and property deals, <em>surveyed and settled</em> for you.
-          </h1>
-          <p className="lead">
-            Nexus Properties helps you find, evaluate, and close residential
-            plots and approved commercial property across Jaipur's
-            fastest-growing sectors — including Smart City zones.
-          </p>
-          <div className="hero-cta">
-            <Link href="/contact" className="btn btn-primary">
-              Get a Property Match
-            </Link>
-            <Link href="/projects" className="btn btn-ghost">
-              View Current Projects
-            </Link>
+          <div className="hero-grid">
+            {/* Left Column: Text Content */}
+            <div className="hero-text-content">
+              <div className="eyebrow">Thank you for visiting &amp; Nexxus Homz Pvt. Ltd.</div>
+              <h1>
+                Land and property deals, <em>surveyed and settled</em> for you.
+              </h1>
+              <p className="lead">
+                Understanding the demands of both individuals and corporate clients.
+                Living alone is insufficient. The quality of life is becoming increasingly significant as we adapt to the changing times.
+                Whether for home or commercial use, the idea of purchasing space has evolved to encompass much more than just the structure or land. It now covers pre- and post-purchase services as well as the requirement to streamline the whole real estate purchasing process. Therefore, the discriminating, astute consumer now chooses a real estate consultant and organization based on the overall real estate transaction experience.
+              </p>
+              <div className="hero-cta">
+                <Link href="/contact" className="btn btn-primary">
+                  Get a Property Match
+                </Link>
+                <Link href="/projects" className="btn btn-ghost">
+                  View Current Projects
+                </Link>
+              </div>
+            </div>
+
+            {/* Right Column: Premium Auto Slider */}
+            <div className="hero-slider-container">
+              {slides.map((src, index) => (
+                <div
+                  key={src}
+                  className={`hero-slide${index === currentSlide ? " active" : ""}`}
+                  style={{ backgroundImage: `url(${src})` }}
+                >
+                  <div className="hero-slide-overlay" />
+                </div>
+              ))}
+            </div>
           </div>
+
           <div className="coord-strip">
             <div className="coord-item">
               <div className="num">3</div>
-              <div className="label">New Projects · Jaipur</div>
+              <div className="label">New Projects · Sikar Corridor</div>
             </div>
             <div className="coord-item">
               <div className="num">11%</div>
@@ -167,8 +199,8 @@ export default function Home() {
               <div className="parcel-id">PARCEL / 03</div>
               <h3>Smart City Sector Land</h3>
               <p>
-                Early-stage plots inside Jaipur's Smart City development
-                corridor, positioned for long-term appreciation.
+                Early-stage plots inside planned development
+                corridors, positioned for long-term appreciation.
               </p>
             </div>
           </div>
@@ -184,38 +216,129 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── PROJECT GALLERY ── */}
+      <section className="project-gallery-section">
+        <div className="section-inner">
+          <div className="section-head" style={{ textAlign: "center", maxWidth: "100%" }}>
+            <div className="section-tag" style={{ justifyContent: "center" }}>// Featured Projects</div>
+            <h2>Gallery</h2>
+            <p>A glimpse of the layouts, streets, and spaces we offer.</p>
+          </div>
+
+          <div className="image-gallery-grid">
+            <div className="gallery-card">
+              <div className="gallery-img-wrapper">
+                <img
+                  src="/project-gellery/1.jpg"
+                  alt="Residential plot with green boundary"
+                />
+              </div>
+              <div className="gallery-info">
+                <h4>Green Boundary Plots</h4>
+                <p>Wide open residential parcels demarcated with lush trees and paths.</p>
+              </div>
+            </div>
+
+            <div className="gallery-card">
+              <div className="gallery-img-wrapper">
+                <img
+                  src="/project-gellery/2.jpg"
+                  alt="Corner commercial plot view"
+                />
+              </div>
+              <div className="gallery-info">
+                <h4>Commercial Corner Units</h4>
+                <p>High-visibility corner plots optimized for retail business and offices.</p>
+              </div>
+            </div>
+
+            <div className="gallery-card">
+              <div className="gallery-img-wrapper">
+                <img
+                  src="/project-gellery/8.jpg"
+                  alt="Wide street in a residential layout"
+                />
+              </div>
+              <div className="gallery-info">
+                <h4>Paved Arterial Roads</h4>
+                <p>Wide, concrete internal roads featuring modern streetlights.</p>
+              </div>
+            </div>
+
+            <div className="gallery-card">
+              <div className="gallery-img-wrapper">
+                <img
+                  src="/project-gellery/7.jpg"
+                  alt="Clear demarcated plots"
+                />
+              </div>
+              <div className="gallery-info">
+                <h4>Precise Plot Boundaries</h4>
+                <p>Every single plot is professionally measured, numbered, and demarcated.</p>
+              </div>
+            </div>
+
+            <div className="gallery-card">
+              <div className="gallery-img-wrapper">
+                <img
+                  src="/project-gellery/6.jpg"
+                  alt="Premium plotted community"
+                />
+              </div>
+              <div className="gallery-info">
+                <h4>Gated Development Layouts</h4>
+                <p>Secured gated entrance and planned green belts surrounding the township.</p>
+              </div>
+            </div>
+
+            <div className="gallery-card">
+              <div className="gallery-img-wrapper">
+                <img
+                  src="/project-gellery/9.jpg"
+                  alt="Entrance view of the development"
+                />
+              </div>
+              <div className="gallery-info">
+                <h4>Grand Entrance Arch</h4>
+                <p>Impressive entry gateway with round-the-clock security cabin.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ── PROJECTS ── */}
       <section className="projects">
         <div className="section-inner">
           <div className="section-head">
             <div className="section-tag">// Current Listings</div>
-            <h2>3 new projects, open now in Jaipur.</h2>
+            <h2>3 new projects, open now in Sikar &amp; Jaipur.</h2>
           </div>
           <div className="project-list">
-            <div className="project-row">
+            <Link href="/nexxus-city" className="project-row" style={{ textDecoration: 'none' }}>
               <div className="pnum mono">A</div>
               <div>
-                <div className="pname">Smart City Residential Plots</div>
-                <div className="pmeta">From ₹8L · Plot only · 1 year no-interest plan</div>
+                <div className="pname">Nexxus City</div>
+                <div className="pmeta">From ₹8L · Plot only · 1 year no-interest plan · NH-11 Sikar</div>
               </div>
               <div className="pstatus">Open for booking</div>
-            </div>
-            <div className="project-row">
+            </Link>
+            <Link href="/Saanwariya-City" className="project-row" style={{ textDecoration: 'none' }}>
               <div className="pnum mono">B</div>
               <div>
-                <div className="pname">Commercial Approved Corner Plots</div>
-                <div className="pmeta">₹14L – ₹16L · Approved commercial layout</div>
+                <div className="pname">Saanwariya City</div>
+                <div className="pmeta">₹14L – ₹16L · Aloda-Palsana Road · RIICO Industrial area proximity</div>
               </div>
               <div className="pstatus">Few units left</div>
-            </div>
-            <div className="project-row">
+            </Link>
+            <Link href="/shri-shyam-colony" className="project-row" style={{ textDecoration: 'none' }}>
               <div className="pnum mono">C</div>
               <div>
-                <div className="pname">Premium Sector Plots</div>
-                <div className="pmeta">₹48L · Prime location · 11% registry</div>
+                <div className="pname">Shri Shyam Colony</div>
+                <div className="pmeta">₹12L – ₹28L · Prime location near Khatu Shyam Temple · 11% registry</div>
               </div>
               <div className="pstatus">Open for booking</div>
-            </div>
+            </Link>
           </div>
           <div style={{ marginTop: "36px" }}>
             <Link href="/projects" className="btn btn-ghost">
@@ -259,7 +382,7 @@ export default function Home() {
             <h2>People you can trust with your investment.</h2>
             <p>
               Our team brings together legal expertise, market knowledge, and
-              on-ground experience in Jaipur's property landscape.
+              on-ground experience in Rajasthan's property landscape.
             </p>
           </div>
           <div className="team-grid">
@@ -289,7 +412,7 @@ export default function Home() {
             <div className="section-tag">// Insights &amp; Updates</div>
             <h2>Latest from our blog.</h2>
             <p>
-              Market trends, buyer guides, and investment insights from Jaipur's
+              Market trends, buyer guides, and investment insights from Rajasthan's
               real estate landscape.
             </p>
           </div>
@@ -322,7 +445,7 @@ export default function Home() {
             </div>
             <h2>Frequently asked questions.</h2>
             <p>
-              Everything you need to know before buying a plot in Jaipur.
+              Everything you need to know before buying a plot.
             </p>
           </div>
           <div className="faq-grid">
